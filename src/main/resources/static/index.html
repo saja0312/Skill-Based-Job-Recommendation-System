@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillMatch Pro — Smart Career Matching</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="logo"><div class="logo-mark">S</div><div>SkillMatch<span>Pro</span></div></div>
+    <nav>
+      <button class="nav-item active" onclick="showDashboard(this)">⌂ <span>Dashboard</span></button>
+      <button class="nav-item" onclick="loadRecommendations();setActive(this)">✦ <span>For You</span></button>
+      <button class="nav-item" onclick="loadJobs();setActive(this)">◈ <span>Explore Jobs</span></button>
+      <button class="nav-item" onclick="loadApplications();setActive(this)">✓ <span>Applications</span></button>
+    </nav>
+    <div class="side-tip">
+      <div class="tip-icon">✦</div>
+      <b>Smart matching</b>
+      <p>Recommendations are explained by skills, experience, role and location.</p>
+    </div>
+    <button class="logout-side" onclick="logout()">↪ Sign out</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="mobile-brand"><div class="logo-mark">S</div> SkillMatch Pro</div>
+      <div class="welcome"><span id="greeting">Welcome back</span><small id="userRole"></small></div>
+      <div class="top-actions">
+        <div class="avatar" id="avatar">S</div>
+      </div>
+    </header>
+
+    <section id="auth" class="auth-screen">
+      <div class="auth-hero">
+        <div class="eyebrow">AI-POWERED CAREER MATCHING</div>
+        <h1>Your next opportunity<br><span>starts here.</span></h1>
+        <p>Discover jobs ranked around your real skills — with transparent match scores instead of random listings.</p>
+        <div class="hero-pills"><span>✦ Skill matching</span><span>⚡ 25+ jobs</span><span>✓ Explainable results</span></div>
+      </div>
+      <div class="auth-grid">
+        <div class="auth-card">
+          <div class="card-icon">→</div>
+          <h2>Welcome back</h2><p class="sub">Sign in to see your personalized jobs.</p>
+          <label>Email</label><input id="loginEmail" placeholder="you@example.com">
+          <label>Password</label><input id="loginPassword" type="password" placeholder="••••••••">
+          <button class="primary full" onclick="login()">Sign in <span>→</span></button>
+          <div class="demo"><b>Demo account</b><br>candidate@skillmatch.com · candidate123</div>
+        </div>
+        <div class="auth-card">
+          <div class="card-icon green">+</div>
+          <h2>Create your profile</h2><p class="sub">Get recommendations tailored to your skills.</p>
+          <label>Name</label><input id="regName" placeholder="Your name">
+          <label>Email</label><input id="regEmail" placeholder="you@example.com">
+          <label>Password</label><input id="regPassword" type="password" placeholder="Create a password">
+          <label>Skills</label><input id="regSkills" placeholder="Java, SQL, React, HTML...">
+          <button class="outline full" onclick="register()">Create candidate account</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="app" style="display:none">
+      <div id="dashboardView">
+        <section class="dashboard-hero">
+          <div><div class="eyebrow">PERSONALIZED FOR YOU</div><h1>Find work that<br><span>fits your skills.</span></h1><p>We compare your profile with every job and explain why it matches.</p></div>
+          <div class="hero-orb"><div>✦</div><small>SMART<br>MATCH</small></div>
+        </section>
+
+        <div class="stats">
+          <div class="stat"><span class="stat-icon blue">◈</span><div><b id="jobCount">0</b><small>Jobs available</small></div></div>
+          <div class="stat"><span class="stat-icon purple">✦</span><div><b id="topMatch">—</b><small>Top match</small></div></div>
+          <div class="stat"><span class="stat-icon green">✓</span><div><b id="appCount">0</b><small>Applications</small></div></div>
+        </div>
+
+        <div class="section-head"><div><h2>Recommended for you</h2><p>Ranked by your profile match</p></div><button class="text-btn" onclick="loadRecommendations()">View all →</button></div>
+        <div id="recommendations" class="jobs-grid"></div>
+      </div>
+
+      <div id="contentView" style="display:none">
+        <div class="page-head"><div><div class="eyebrow">OPPORTUNITIES</div><h1 id="pageTitle">Explore jobs</h1><p id="pageSubtitle">Find your next role from our growing job collection.</p></div></div>
+        <div class="filters">
+          <div class="searchbox">⌕ <input id="search" placeholder="Search by title, skill or company..." oninput="loadJobs()"></div>
+          <select id="locationFilter" onchange="filterJobs()"><option value="">All locations</option></select>
+          <button id="remoteFilter" class="filter-chip" onclick="toggleRemote()">◉ Remote only</button>
+        </div>
+        <div id="content"></div>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="/js/app.js"></script>
+</body>
+</html>
